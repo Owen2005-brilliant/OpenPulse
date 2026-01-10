@@ -71,75 +71,33 @@ backend (FastAPI + OpenAI SDK)         # /api/intro /api/alerts /api/report (Mar
 
 ---
 
-## 亮点与特点
+## 创新点与亮点
 
-### 1) “离线可用 + 可解释”的双通道预警
+### 1) 原创指标体系构建：从“行为数据”到“可解释健康度”
+
+- **原创维度框架**：将开源项目健康拆解为 5 个维度（活跃度 / 响应效率 / 贡献结构 / 关注度与影响力 / 可持续性），既覆盖“产出”，也覆盖“组织协作效率”和“抗风险能力”。
+- **统一口径的 KPI 映射**：在 `scripts/openpulse_etl.py` 中把离散的指标 JSON 与超大事件日志按“repo-month”聚合对齐，形成可复现的 KPI 表（`repo_month_kpi.parquet`），避免“各说各话”的指标口径漂移。
+- **可解释的打分机制**：`scripts/healthscore.py` 计算维度分与总分（`health_score`），并输出归一化统计用于解释与复用（`health_norm_stats.json`）。
+
+### 2) 基于 Agent 的项目健康报告与 Alert 信息：从“发现问题”到“给出可执行治理方案”
+
+- **结构化输出，便于渲染与评审阅读**：后端优先产出结构化 JSON（sections/risks/actions/evidence/next_metrics），前端做卡片化渲染，保证风格统一、信息密度高、可高亮严重等级。
+- **时间窗口对比 + 触发/未触发解释**：将“最近 1 月 / 最近 3 月 vs 前 3 月”等对比口径输出为证据，报告中解释为什么触发（或为什么没触发），让结论可复核。
+- **行动建议落到执行层**：每条建议给出负责人/节奏/SLA/成功判据（例如“2 周内将 PR 首响中位数降到 <24h”）。
+
+### 3) “摘要 + 可解释”的双通道预警
 
 - **规则预警（强可解释）**：`frontend/src/lib/riskRules.ts`
   - 使用近 6 个月序列，对“活跃度下滑、PR 响应/解决变慢、Bus Factor 风险、Issue 积压、关注度激增但吞吐未提升”等进行规则判定
-  - 输出结构化告警（level/title/detail/metric），便于 UI 展示与后续解释
-- **AI 摘要（强可读性）**：`backend/app.py` 的 `/api/alerts`
-  - 将规则告警 + 最新指标 + 近期序列压缩成 3~5 条可执行建议（Markdown）
-
-### 2) 健康度评分同时支持“脚本统一打分”和“前端自适应归一化”
-
-- **脚本打分**：`scripts/healthscore.py`
-  - 在 `data/openpulse_processed/repo_month_kpi.parquet` 上计算维度分与总分 `health_score`
-  - 保存 `health_norm_stats.json`（min/max）便于复用或解释
-- **前端自适应**：`frontend/src/pages/Dashboard.jsx`
-  - 基于“该 repo 自身历史”的 p10..p90 分位数做 robust 归一化（减少极值干扰）
-  - 若某维度全缺失，使用中性分（50）避免不必要的惩罚
-
-### 3) 数据处理链路清晰、可复现
-
-- `scripts/openpulse_etl.py` 将“指标 json + 事件日志 txt”合并为统一的 repo-month 粒度 KPI 表
-- `scripts/export_dashboard_json.py` 将 parquet 直接导出为前端静态 JSON（避免前端/后端读 parquet）
-- 前端仅依赖 `/public/data` 即可跑通大屏展示（更适合比赛演示与离线环境）
+  - 输出结构化告警（level/title/detail/metric）
+- **AI 摘要（强可读性）**：`backend/app.py` 的 `/api/alerts_v2`
+  - 将规则告警 + 最新指标 + 近期序列压缩成 3~5 条可执行建议
 
 ### 4) 大屏交互体验为展示场景优化
 
 - 页面使用 Framer Motion 做路由切换与进场动画
-- 弹窗内容使用 Markdown 渲染（`react-markdown` + `remark-gfm`），并默认不启用 raw HTML，降低 XSS 风险
+- 弹窗内容支持卡片化结构渲染，并保留 Markdown 回退路径，保证稳定性
 - 支持 Esc 关闭弹窗、点击遮罩关闭、仓库切换自动清理弹窗状态
-
----
-
-## 核心实现细节（面向开发者）
-
-### 前端数据约定（`frontend/public/data`）
-
-- `repos.json`：仓库列表（首页下拉）
-- `latest.json`：每个仓库**最新月份**的一行指标汇总（Dashboard 顶部 KPI、概览、AI 输入）
-- `repo_meta.json`：仓库元信息（语言/描述/许可证/创建时间等）
-- `timeseries/{repo}.json`：该仓库按月序列（前端画图、规则预警、趋势对比）
-  - 文件名规则：将 `owner/repo` 替换为 `owner__repo.json`
-
-### 后端接口（`backend/app.py`）
-
-后端默认监听 `http://localhost:8000`，供前端在本地开发时直接调用：
-
-- `POST /api/intro`：生成 60~120 字中文简介（Markdown 非必须，纯文本返回）
-  - **无 OPENAI_API_KEY**：返回离线兜底简介
-- `POST /api/alerts`：生成 3~5 条“近期预警与建议”（Markdown）
-  - **无 OPENAI_API_KEY 或上游失败**：返回离线兜底摘要（mode=fallback）
-- `POST /api/report`：生成“项目健康分析报告”（Markdown）
-  - **注意**：当前实现中缺少 `OPENAI_API_KEY` 会直接报错（用于保证“报告”不误导）
-
-可配置环境变量：
-
-- `OPENAI_API_KEY`：必需（用于 LLM）
-- `OPENAI_BASE_URL`：可选（默认 `https://api.openai.com/v1`）
-- `OPENAI_MODEL`：可选（默认 `gpt-4o-mini`）
-
-### ETL（`scripts/openpulse_etl.py`）
-
-- 从 `top_300_metrics` 中解析多种指标文件，映射到统一 KPI 字段
-- 用 DuckDB 直接对超大日志文件做月度聚合（commits/issues/prs/releases/代码变更行等），生成 `_log` 后缀列用于补齐
-- 产出：
-  - `repo_meta.parquet`
-  - `log_monthly_agg.parquet`
-  - `repo_month_kpi.parquet`
-  - `repo_month_evidence.jsonl`（最新月证据：issue 慢响应、PR 慢合并等）
 
 ---
 
@@ -160,26 +118,13 @@ cd frontend
 npm install
 npm run dev
 ```
+> 需启动后端之后，才能进行报告、alert等内容的agent生成
+环境变量配置：
+- `OPENAI_API_KEY`：必需（用于 LLM）
+- `OPENAI_BASE_URL`：可选（默认 `https://api.openai.com/v1`）
+- `OPENAI_MODEL`：可选（默认 `gpt-4o-mini`）
 
 ---
 
-## 常见问题（FAQ）
-
-### 前端报错：拉不到 `/data/...`
-
-- 确认 `frontend/public/data/` 下已经有 `repos.json / latest.json / repo_meta.json / timeseries/*.json`
-- 如果没有，请运行：`python scripts/export_dashboard_json.py`
-
-### 前端生成报告/简介/预警时请求失败
-
-- 前端默认请求 `http://localhost:8000`，请确认后端已启动
-- 若你不想启动后端：规则预警与图表仍可使用；AI 文案相关功能会不可用或进入兜底模式
-
----
-
-## 维护建议（可选）
-
-- 建议在根目录补充 `.gitignore`（避免提交 `node_modules/`、`dist/`、大体积数据产物）
-- 若要部署：可将前端 `npm run build` 的产物托管为静态站点；后端部署为单独服务并配置跨域/反向代理
 
 
