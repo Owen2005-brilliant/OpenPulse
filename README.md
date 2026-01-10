@@ -1,6 +1,6 @@
 # OpenPulse（2025 OpenSODA）
 
-OpenPulse 是一个面向开源仓库的**健康度监测与治理决策支持**大屏：基于开源行为数据构建指标体系与健康度评分，提供趋势分析、规则预警，并可选接入 LLM 生成“项目简介 / 风险摘要 / 健康报告”（Markdown 适配弹窗展示）。
+OpenPulse 是一个面向开源仓库的**健康度监测与治理决策支持**大屏：基于开源行为数据构建指标体系与健康度评分，提供趋势分析、规则预警，并可选接入 LLM 生成“项目简介 / 风险摘要 / 健康报告”。
 
 ---
 
@@ -10,9 +10,7 @@ OpenPulse 是一个面向开源仓库的**健康度监测与治理决策支持**
 - **核心产出**：
   - **健康度总分** + 维度分（活跃度 / 响应效率 / 贡献结构 / 关注度 / 可持续性）
   - **趋势看板**（时序曲线、对比、KPI 卡片）
-  - **规则预警**（离线可用、可解释、可复现）
-  - **AI 文案**（可选）：生成 Markdown 报告/摘要/简介，用于大屏弹窗
-
+  - **规则预警**（可解释、可复现）
 ---
 
 ## 整体结构（架构与数据流）
@@ -80,9 +78,8 @@ backend (FastAPI + OpenAI SDK)         # /api/intro /api/alerts /api/report (Mar
 - **规则预警（强可解释）**：`frontend/src/lib/riskRules.ts`
   - 使用近 6 个月序列，对“活跃度下滑、PR 响应/解决变慢、Bus Factor 风险、Issue 积压、关注度激增但吞吐未提升”等进行规则判定
   - 输出结构化告警（level/title/detail/metric），便于 UI 展示与后续解释
-- **AI 摘要（强可读性，可选）**：`backend/app.py` 的 `/api/alerts`
+- **AI 摘要（强可读性）**：`backend/app.py` 的 `/api/alerts`
   - 将规则告警 + 最新指标 + 近期序列压缩成 3~5 条可执行建议（Markdown）
-  - 无 Key 或上游异常时自动返回**离线兜底摘要**，保证大屏稳定不空白
 
 ### 2) 健康度评分同时支持“脚本统一打分”和“前端自适应归一化”
 
@@ -148,26 +145,7 @@ backend (FastAPI + OpenAI SDK)         # /api/intro /api/alerts /api/report (Mar
 
 ## 本地运行（推荐顺序）
 
-### 1) 准备前端静态数据（如已存在可跳过）
-
-如果你已经有 `data/openpulse_processed/*.parquet`，可直接执行导出：
-
-```bash
-python scripts/export_dashboard_json.py
-```
-
-如需要从原始数据完整跑 ETL（耗时较长）：
-
-```bash
-python scripts/openpulse_etl.py ^
-  --metrics_dir data/top_300_metrics/top_300_metrics ^
-  --log_file data/top300_20_23log/top300_20_23_1681699961594.txt ^
-  --out_dir data/openpulse_processed
-python scripts/healthscore.py
-python scripts/export_dashboard_json.py
-```
-
-### 2) 启动后端（可选，但推荐）
+### 1) 启动后端
 
 ```bash
 cd backend
@@ -175,18 +153,13 @@ python -m pip install -r requirements.txt
 set OPENAI_API_KEY=你的key
 python -m uvicorn app:app --host 0.0.0.0 --port 8000
 ```
-
-> 不设置 `OPENAI_API_KEY` 时：`/api/intro` 与 `/api/alerts` 仍可用（兜底），`/api/report` 会返回错误。
-
-### 3) 启动前端
+### 2) 启动前端
 
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
-
-打开 Vite 输出的本地地址（默认 `http://localhost:5173`），首页选择仓库后进入 Dashboard。
 
 ---
 
