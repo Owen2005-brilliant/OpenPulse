@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root { height: 100%; }
+
+/* =============================
+   OpenPulse Atmosphere (SAFE)
+   - pure visual, no interaction impact
+   ============================= */
+@keyframes op-aurora-shift {
+  0% { transform: translate3d(-6%, -4%, 0) scale(1); opacity: .75; filter: blur(28px); }
+  50% { transform: translate3d(4%, 3%, 0) scale(1.06); opacity: .62; filter: blur(34px); }
+  100% { transform: translate3d(-6%, -4%, 0) scale(1); opacity: .75; filter: blur(28px); }
+}
+
+@keyframes op-scan {
+  0% { transform: translateY(-60%); opacity: 0; }
+  12% { opacity: .12; }
+  50% { opacity: .08; }
+  100% { transform: translateY(160%); opacity: 0; }
+}
+
+.op-atmo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.op-atmo-aurora {
+  position: absolute;
+  inset: -18%;
+  background:
+    radial-gradient(600px 420px at 18% 24%, rgba(56,189,248,.22), transparent 55%),
+    radial-gradient(640px 460px at 78% 22%, rgba(139,92,246,.18), transparent 58%),
+    radial-gradient(760px 520px at 52% 86%, rgba(16,185,129,.12), transparent 60%);
+  animation: op-aurora-shift 12s ease-in-out infinite;
+}
+
+.op-atmo-grid {
+  position: absolute;
+  inset: 0;
+  opacity: .22;
+  background-image:
+    linear-gradient(rgba(148,163,184,0.18) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148,163,184,0.18) 1px, transparent 1px);
+  background-size: 72px 72px;
+  -webkit-mask-image: radial-gradient(closest-side at 50% 45%, rgba(0,0,0,.85), transparent 72%);
+  mask-image: radial-gradient(closest-side at 50% 45%, rgba(0,0,0,.85), transparent 72%);
+}
+
+.op-atmo-noise {
+  position: absolute;
+  inset: 0;
+  opacity: .06;
+  background-image:
+    repeating-radial-gradient(circle at 10% 20%, rgba(255,255,255,0.18) 0 1px, transparent 1px 6px);
+  mix-blend-mode: overlay;
+}
+
+.op-atmo-scanline {
+  position: absolute;
+  inset: -20% 0;
+  background: linear-gradient(to bottom, transparent, rgba(56,189,248,0.10), transparent);
+  animation: op-scan 6.5s ease-in-out infinite;
+}
+
+.op-glass-card {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 0 70px rgba(56,189,248,.12);
+}
+
+.op-glow-border {
+  position: relative;
+  overflow: hidden;
+}
+.op-glow-border::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset-x: 0;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(56,189,248,.40), rgba(139,92,246,.28), transparent);
+}
