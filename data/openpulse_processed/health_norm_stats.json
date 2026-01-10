@@ -1,0 +1,70 @@
+{
+  "kpi_new_contributors_month": {
+    "min": 0.0,
+    "max": 5162.0
+  },
+  "kpi_new_issues_month": {
+    "min": 0.0,
+    "max": 10314.0
+  },
+  "kpi_code_change_lines_month_abs": {
+    "min": 0.0,
+    "max": 8719651.0
+  },
+  "kpi_technical_fork": {
+    "min": 1.0,
+    "max": 10355.0
+  },
+  "kpi_new_prs_month": {
+    "min": 0.0,
+    "max": 10386.0
+  },
+  "kpi_openrank": {
+    "min": 0.09,
+    "max": 4829.38
+  },
+  "kpi_inactive_contributors_month": {
+    "min": 1.0,
+    "max": 41372.0
+  },
+  "lat_pr_resolution_median": {
+    "min": 0.0,
+    "max": 1915.0
+  },
+  "kpi_activity": {
+    "min": 1.0,
+    "max": 17208.54
+  },
+  "lat_pr_response_median": {
+    "min": 0.0,
+    "max": 3008.0
+  },
+  "kpi_release_count_month": {
+    "min": 0.0,
+    "max": 0.0
+  },
+  "kpi_stars_delta_month": {
+    "min": 1.0,
+    "max": 38643.0
+  },
+  "lat_issue_response_median": {
+    "min": 0.0,
+    "max": 2876.0
+  },
+  "lat_issue_resolution_median": {
+    "min": 0.0,
+    "max": 2804.0
+  },
+  "kpi_attention": {
+    "min": 1.0,
+    "max": 46603.0
+  },
+  "bus_factor": {
+    "min": 1.0,
+    "max": 9685.0
+  },
+  "kpi_active_contributors_month": {
+    "min": 1.0,
+    "max": 9724.0
+  }
+}
