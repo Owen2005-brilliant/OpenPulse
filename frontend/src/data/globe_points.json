@@ -1,0 +1,228 @@
+{
+  "points": [
+    {
+      "lat": 35.1746503,
+      "lon": 33.3638783,
+      "city": "Nicosia",
+      "repo": "AdguardTeam/AdguardFilters",
+      "owner": "AdguardTeam"
+    },
+    {
+      "lat": 38.8950368,
+      "lon": -77.0365427,
+      "city": "Washington",
+      "repo": "airbytehq/airbyte",
+      "owner": "airbytehq"
+    },
+    {
+      "lat": 30.2489634,
+      "lon": 120.2052342,
+      "city": "Hangzhou",
+      "repo": "alibaba/nacos",
+      "owner": "alibaba"
+    },
+    {
+      "lat": 37.7792588,
+      "lon": -122.4193286,
+      "city": "San Francisco",
+      "repo": "bitnami/charts",
+      "owner": "bitnami"
+    },
+    {
+      "lat": 36.7014631,
+      "lon": -118.755997,
+      "city": "California",
+      "repo": "ceph/ceph",
+      "owner": "ceph"
+    },
+    {
+      "lat": 33.7489924,
+      "lon": -84.3902644,
+      "city": "Atlanta",
+      "repo": "cypress-io/cypress",
+      "owner": "cypress-io"
+    },
+    {
+      "lat": 40.7127281,
+      "lon": -74.0060152,
+      "city": "New York",
+      "repo": "DataDog/datadog-agent",
+      "owner": "DataDog"
+    },
+    {
+      "lat": 37.3228934,
+      "lon": -122.0322895,
+      "city": "Cupertino",
+      "repo": "demisto/content",
+      "owner": "demisto"
+    },
+    {
+      "lat": 40.6526006,
+      "lon": -73.9497211,
+      "city": "Brooklyn",
+      "repo": "directus/directus",
+      "owner": "directus"
+    },
+    {
+      "lat": 40.190632,
+      "lon": 116.412144,
+      "city": "Beijing",
+      "repo": "element-plus/element-plus",
+      "owner": "element-plus"
+    },
+    {
+      "lat": 31.2312707,
+      "lon": 121.4700152,
+      "city": "Shanghai",
+      "repo": "espressif/esp-idf",
+      "owner": "espressif"
+    },
+    {
+      "lat": 37.4519671,
+      "lon": -122.177992,
+      "city": "Menlo Park",
+      "repo": "facebook/react",
+      "owner": "facebook"
+    },
+    {
+      "lat": 67.1234635221075,
+      "lon": 16.063451870846933,
+      "city": "Sweden",
+      "repo": "grafana/grafana",
+      "owner": "grafana"
+    },
+    {
+      "lat": 64.20330108239808,
+      "lon": 16.66008944582906,
+      "city": "Sweden",
+      "repo": "grafana/loki",
+      "owner": "grafana"
+    },
+    {
+      "lat": 37.3541132,
+      "lon": -121.955174,
+      "city": "Santa Clara",
+      "repo": "IntelRealSense/librealsense",
+      "owner": "IntelRealSense"
+    },
+    {
+      "lat": 42.4115733,
+      "lon": -119.9038624,
+      "city": "Plush",
+      "repo": "JacksonKearl/testissues",
+      "owner": "JacksonKearl"
+    },
+    {
+      "lat": 50.0874654,
+      "lon": 14.4212535,
+      "city": "Prague",
+      "repo": "JetBrains/swot",
+      "owner": "JetBrains"
+    },
+    {
+      "lat": 51.5074456,
+      "lon": -0.1277653,
+      "city": "London",
+      "repo": "jlord/patchwork",
+      "owner": "jlord"
+    },
+    {
+      "lat": 51.4790956,
+      "lon": 5.6557686,
+      "city": "The Netherlands",
+      "repo": "Koenkk/zigbee2mqtt",
+      "owner": "Koenkk"
+    },
+    {
+      "lat": 52.510885,
+      "lon": 13.3989367,
+      "city": "Berlin",
+      "repo": "mastodon/mastodon",
+      "owner": "mastodon"
+    },
+    {
+      "lat": 47.6694141,
+      "lon": -122.1238767,
+      "city": "Redmond",
+      "repo": "microsoft/azuredatastudio",
+      "owner": "microsoft"
+    },
+    {
+      "lat": 63.4304475,
+      "lon": 10.3952118,
+      "city": "Trondheim",
+      "repo": "nrfconnect/sdk-nrf",
+      "owner": "nrfconnect"
+    },
+    {
+      "lat": 51.09006565205535,
+      "lon": 4.947927498589179,
+      "city": "Belgium",
+      "repo": "odoo/odoo",
+      "owner": "odoo"
+    },
+    {
+      "lat": -10.3333333,
+      "lon": -53.2,
+      "city": "Brasília",
+      "repo": "PixelExperience/android-issues",
+      "owner": "PixelExperience"
+    },
+    {
+      "lat": 48.8588897,
+      "lon": 2.3200410217200766,
+      "city": "Paris",
+      "repo": "PrestaShop/PrestaShop",
+      "owner": "PrestaShop"
+    },
+    {
+      "lat": 42.3554334,
+      "lon": -71.060511,
+      "city": "Boston",
+      "repo": "rapid7/metasploit-framework",
+      "owner": "rapid7"
+    },
+    {
+      "lat": 60.1674881,
+      "lon": 24.9427473,
+      "city": "Helsinki",
+      "repo": "Regalis11/Barotrauma",
+      "owner": "FakeFishGames"
+    },
+    {
+      "lat": 32.0852997,
+      "lon": 34.7818064,
+      "city": "Tel Aviv",
+      "repo": "renovatebot/renovate",
+      "owner": "renovatebot"
+    },
+    {
+      "lat": 77.50861355334347,
+      "lon": -81.92710314279574,
+      "city": "Canada",
+      "repo": "tailscale/tailscale",
+      "owner": "tailscale"
+    },
+    {
+      "lat": 1.357107,
+      "lon": 103.8194992,
+      "city": "Singapore",
+      "repo": "TP-Lab/tokens",
+      "owner": "TP-Lab"
+    },
+    {
+      "lat": 52.3730796,
+      "lon": 4.8924534,
+      "city": "Amsterdam",
+      "repo": "Ultimaker/Cura",
+      "owner": "Ultimaker"
+    },
+    {
+      "lat": -33.9288301,
+      "lon": 18.4172197,
+      "city": "Cape Town",
+      "repo": "woocommerce/woocommerce",
+      "owner": "woocommerce"
+    }
+  ]
+}
