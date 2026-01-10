@@ -16,7 +16,11 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:5173",
         "http://127.0.0.1:5173",
+        # 线上 Vercel 域名（正式环境）
+        "https://open-pulse-red.vercel.app",
     ],
+    # 允许 Vercel 预览域名（如 https://xxx.vercel.app）
+    allow_origin_regex=r"https://.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
