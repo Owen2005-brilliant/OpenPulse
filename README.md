@@ -125,6 +125,7 @@ npm run dev
 - `OPENAI_BASE_URL`：可选（默认 `https://api.openai.com/v1`）
 - `OPENAI_MODEL`：可选（默认 `gpt-4o-mini`）
 
+> 后续进一步开发的过程中会部署到云端，目前是一个本地的demo项目
 ---
 
 
